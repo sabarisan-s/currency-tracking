@@ -1,14 +1,18 @@
 import React from "react";
-
+import { PajamasRetry } from "./Retry";
 const ImgCard = ({ currencyLists, searchText, FetchErr }) => {
     return (
         <section>
             <div className="container">
                 {FetchErr && (
-                    <p className="text-center text-danger ">
-                        {" "}
-                        {FetchErr} Reload
-                    </p>
+                    <>
+                        <p
+                            className="text-center text-danger "
+                            style={{ letterSpacing: "1px" }}
+                        >
+                            <PajamasRetry /> {FetchErr} Reload
+                        </p>
+                    </>
                 )}
                 {!FetchErr && (
                     <div className="row d-flex justify-content-center">
