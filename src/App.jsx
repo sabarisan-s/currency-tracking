@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
 import axios from "axios";
 import ImgCard from "./components/ImgCard";
 
@@ -8,25 +7,28 @@ function App() {
     const [currencyLists, setCurrencyLists] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [FetchErr, setFetchErr] = useState(null);
-    useEffect(() => {
-        const getApi = async () => {
-            await axios
-                .get(
-                    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd"
-                )
-                .then((response) => {
-                    if (!response) {
-                        throw Error("Data Fetch Error Reload");
-                    }
+    
 
-                    return setCurrencyLists(response.data);
-                })
-                .catch((e) => {
-                    setFetchErr(e.message);
-                });
-        };
+    useEffect(() => {
         getApi();
     }, []);
+
+    const getApi = async () => {
+        await axios
+            .get(
+                "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd"
+            )
+            .then(({ data }) => {
+                if (!data) {
+                    throw Error("Data Fetch Error Reload");
+                }
+
+                return setCurrencyLists(data);
+            })
+            .catch((e) => {
+                setFetchErr(e.message);
+            });
+    };
 
     return (
         <>
